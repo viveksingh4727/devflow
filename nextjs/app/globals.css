@@ -1,17 +1,13 @@
 @import "tailwindcss";
+@config "../tailwind.config.js";
 
+/* Root variables */
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
+/* Dark mode */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -19,8 +15,164 @@
   }
 }
 
+/* Base styles */
 body {
-  background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--background);
+  font-feature-settings: "cv11" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Utilities layer */
+@layer utilities {
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
+
+  .flex-between {
+    @apply flex justify-between items-center;
+  }
+
+  .flex-start {
+    @apply flex justify-start items-center;
+  }
+
+  /* FIXED: removed custom shadow usage */
+  .card-wrapper {
+    @apply rounded-xl p-4;
+  }
+
+  .btn {
+    @apply px-4 py-2 rounded-md;
+  }
+
+  .btn-secondary {
+    @apply px-4 py-2 rounded-md;
+  }
+
+  .btn-tertiary {
+    @apply px-4 py-2 rounded-md;
+  }
+
+  .no-focus {
+    @apply focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0;
+  }
+
+  /* ⚠️ prose plugin classes also should NOT be used in @apply */
+  .markdown {
+    max-width: 100%;
+  }
+
+  .markdown-editor {
+    max-width: 100%;
+  }
+
+  .tab {
+    @apply min-h-full;
+  }
+}
+
+/* Custom gradient */
+.dark-gradient {
+  background: linear-gradient(
+    232deg,
+    rgba(23, 28, 35, 0.41) 0%,
+    rgba(19, 22, 28, 0.7) 100%
+  );
+}
+
+/* Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+  border-radius: 2px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 50px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Hide scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Misc */
+.active-theme {
+  filter: invert(53%) sepia(98%) saturate(3332%) hue-rotate(0deg)
+    brightness(104%) contrast(106%);
+}
+
+.hash-span {
+  margin-top: -140px;
+  padding-bottom: 140px;
+  display: block;
+}
+
+/* Editor styles */
+.mdxeditor-toolbar {
+  background: #ffffff;
+}
+
+.dark .mdxeditor-toolbar {
+  background: #151821;
+}
+
+.dark .mdxeditor-toolbar button svg {
+  color: #858ead;
+}
+
+.dark .mdxeditor-toolbar button:hover svg {
+  color: #000;
+}
+
+.dark .mdxeditor-toolbar [role="separator"] {
+  border-color: #555;
+}
+
+/* Markdown */
+.markdown a {
+  color: #1da1f2;
+}
+
+.markdown a,
+code {
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  padding: 2px;
+  color: #ff7000;
+}
+
+.markdown pre {
+  display: grid;
+  width: 100%;
+}
+
+.markdown pre code {
+  width: 100%;
+  display: block;
+  overflow-x: auto;
+  color: inherit;
+}
+
+/* Editor height */
+[data-lexical-editor="true"] {
+  height: 350px;
+  overflow-y: auto;
 }
